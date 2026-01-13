@@ -21,7 +21,7 @@ sec:
 precommit:
 	uv run pre-commit run --all-files
 
-qa: lint typecheck sec test
+qa: fmt lint typecheck sec test
 
 clean:
 	rm -rf __pycache__ .pytest_cache .ruff_cache .pyright .mypy_cache .coverage htmlcov

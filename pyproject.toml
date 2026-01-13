@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "holocron"
 version = "0.1.0"
-description = "A Jedi's guide to Python excellence — implementing the Golden Path (uv, ruff, pyright, pytest)."
+description = "A Jedi's guide to Python excellence — implementing the Python Golden Path."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

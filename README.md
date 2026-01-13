@@ -38,7 +38,7 @@ make lint       # Lint code
 make fmt        # Format code
 make typecheck  # Type check
 make sec        # Security scan
-make qa         # Run all checks (lint → typecheck → sec → test)
+make qa         # All checks (fmt > lint > typecheck > sec > test)
 make precommit  # Run pre-commit hooks
 make clean      # Remove temp files and caches
 ```
@@ -77,12 +77,39 @@ This template works for any Python application:
 
 | Use Case | What to Add |
 |----------|-------------|
-| **FastAPI API** | `fastapi`, `uvicorn` → add `src/holocron/api/` |
-| **SQS Consumer** | `boto3` → add `src/holocron/workers/` |
-| **CLI Tool** | `typer` or `click` → add `src/holocron/cli.py` |
+| **FastAPI API** | `fastapi`, `uvicorn` > add `src/holocron/api/` |
+| **SQS Consumer** | `boto3` > add `src/holocron/workers/` |
+| **CLI Tool** | `typer` or `click` > add `src/holocron/cli.py` |
 | **Library** | Keep `[build-system]` for packaging |
 
 The `[build-system]` section in `pyproject.toml` is optional for applications. It's only needed if you want to build wheels or publish to PyPI.
+
+## Development Workflow
+
+**Option 1: Manual (recommended)**
+
+Run all checks before committing:
+
+```bash
+make qa    # fmt > lint > typecheck > sec > test
+git add -A && git commit -m "your message"
+```
+
+**Option 2: Automated with pre-commit**
+
+Install hooks once:
+
+```bash
+uv run pre-commit install
+```
+
+Now every commit automatically runs:
+- **ruff**: lint + auto-fix
+- **ruff-format**: formatting
+- **pyright**: type checking
+- **bandit**: security scan
+
+Tests are not included (too slow). Run `make test` before pushing.
 
 ## Core Principles
 
